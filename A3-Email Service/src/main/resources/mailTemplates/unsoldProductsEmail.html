@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <title>Toys Store</title>
+
+    <style>
+        body{margin-top:20px;}
+
+        .ui-w-150 {
+            width: 150px !important;
+            height: auto;
+        }
+
+        .ui-w-80 {
+            width: 80px !important;
+            height: auto;
+        }
+
+        .rounded-circle{
+            border-radius:50% !important
+        }
+
+    </style>
+
+</head>
+<body>
+
+<table class="body-wrap" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: #f6f6f6; margin: 0;">
+    <tbody>
+    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+
+        <td style="vertical-align: top; margin: 0;"></td>
+
+        <td class="container" style="vertical-align: top; display: block !important; max-width: 800px !important; clear: both !important; margin: 0 auto;">
+
+            <div class="content" style="max-width: 800px; display: block; margin: 0 auto; padding: 20px;">
+
+                <table class="main" width="100%" cellpadding="0" cellspacing="0" style="border-radius: 3px; background-color: #fff; border: 1px solid #e9e9e9;">
+                    <tbody>
+                    <tr>
+                        <td style="font-size: 16px; vertical-align: top; text-align: center; border-radius: 3px 3px 0 0; background:#046486; padding: 20px;"
+                            align="center" bgcolor="#71b6f9" valign="top">
+                            <a th:href="@{http://localhost:8080/toysstore/home}">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-o8XQXZUBZsD3bHcb22jzlSG1TZWsTRp3lIpHz-fgMrmlMXsl0fuN4jEruaY7UIAgqM&usqp=CAU"
+                                     class="d-block ui-w-150 rounded-circle">
+                            </a>
+
+                            <br>
+
+                            <a href="http://localhost:8080/toysstore/home" style="font-size:32px; color:#fff; text-decoration: none;">Toys Store</a> <br>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="content-wrap" style="vertical-align: top; padding: 20px;">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tbody>
+
+                                <tr>
+                                    <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 30px;"
+                                        th:text="'Data: ' + ${#dates.format(notification.date, 'dd-MM-yyyy HH:mm')}">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="content-block" style="font-size: 18px; text-align: center; margin: 0; padding: 0 0 40px;"
+                                        th:text="${notification.subject}">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="content-wrap" style="vertical-align: top; padding: 20px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <thead>
+                                            <tr class="line">
+                                                <th></th>
+                                                <th class="text-left"><strong>Denumire produs</strong></th>
+                                                <th class="text-left"><strong>Cantitate</strong></th>
+                                                <th class="text-left"><strong>Pret unitar</strong></th>
+                                                <th class="text-left"><strong>Ultima vanzare</strong></th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody style="font-size: 14px;">
+                                            <tr th:each="product : ${notification.unsoldProducts}">
+                                                <td class="content-block" style="margin: 0; padding: 0 0 10px;">
+                                                    <div th:if="${#strings.isEmpty(product.imageURL)}">
+                                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQBEmYu5CIrOt9NwKsbb2R_ckCLlGeAbJD9Dt-uYU3GcUp4lrf4tWLBLdyVp62839gB4c&usqp=CAU"
+                                                             class="d-block ui-w-80">
+                                                    </div>
+
+                                                    <div th:if="${not #strings.isEmpty(product.imageURL)}">
+                                                        <img th:src="${product.imageURL}"
+                                                             class="d-block ui-w-80">
+                                                    </div>
+                                                </td>
+
+                                                <td class="content-block" style="margin: 0; padding: 0 0 10px;"
+                                                    th:text="${product.name}">
+                                                </td>
+
+                                                <td class="content-block" style="text-align: left; margin: 0; padding: 0 0 10px;"
+                                                    th:text="${product.quantity} + ' Buc'">
+                                                </td>
+
+                                                <td class="content-block" style="text-align: left; margin: 0; padding: 0 0 10px;"
+                                                    th:text="${#numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')} + ' Lei/Buc'">
+                                                </td>
+
+                                                <td class="content-block" style="text-align: left; margin: 0; padding: 0 0 10px;"
+                                                    th:if="${product.lastSale}"
+                                                    th:text="${#dates.format(product.lastSale, 'dd-MM-yyyy HH:mm')}">
+                                                </td>
+
+                                                <td class="content-block" style="text-align: left; margin: 0; padding: 0 0 10px;"
+                                                    th:if="not ${product.lastSale}"
+                                                    th:text="'NEVER SOLD'">
+                                                </td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="footer" style="font-size: 14px; width: 100%; clear: both; color: #999999; margin: 0; padding: 20px;">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td class="content-block" style="text-align: center; margin: 0; padding: 0 0 10px;">
+                                Toys Store SRL,
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="content-block" style="text-align: center; margin: 0; padding: 0 0 10px;">
+                                Tel/Fax: +40 32 555 52 14/67,
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="content-block" style="text-align: center; margin: 0; padding: 0 0 10px;">
+                                Strada Libertatii, Craiova
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

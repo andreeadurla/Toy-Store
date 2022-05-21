@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Toys Store</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+    <style>
+
+        body{
+            margin-top: 10px;
+        }
+
+        .invoice {
+            padding: 20px;
+        }
+
+        .ui-w-100 {
+            width: 100px !important;
+            height: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="invoice">
+                <div class="row">
+                        <div class="col-xs-6">
+                            <img class="d-block ui-w-100 rounded-circle" alt="Logo" th:src="@{classpath:static/images.png}"/>
+                        </div>
+
+                        <div class="col-xs-6 text-right">
+                            <p style="font-size:26px;">Toys Store</p>
+                        </div>
+                </div>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>
+                            Factura
+                            <br/>
+                            <span class="small" th:text="'Comanda #' + ${order.id}"></span>
+                        </h3>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-xs-6">
+
+                        <address>
+
+                            <span th:text="'Furnizor: Toys Store SRL'"></span> <br/>
+
+                            <span th:text="'C.I.F: RO 987456'"></span> <br/>
+
+                            <span th:text="'Sediul: Strada Libertatii, Craiova'"></span> <br/>
+
+                            <span th:text="'Tel/Fax: +40 32 555 52 14/67'"></span> <br/>
+
+                        </address>
+                    </div>
+
+                    <div class="col-xs-6">
+
+                        <address>
+
+                            <span th:text="'Cumparator: ' + ${order.customer}"></span> <br/>
+
+                            <span th:text="'Adresa: ' + ${order.address}"></span> <br/>
+
+                        </address>
+                    </div>
+
+                </div>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="line">
+                                    <td class="text-center"><strong>Denumire produs</strong></td>
+                                    <td class="text-center"><strong>Cantitate</strong></td>
+                                    <td class="text-center"><strong>Pret unitar</strong></td>
+                                    <td class="text-center"><strong>Pret total</strong></td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="item : ${order.items}">
+                                <td class="text-center" th:text="${item.name}"></td>
+                                <td class="text-center" th:text="${item.quantity} + ' Buc'"></td>
+                                <td class="text-center" th:text="${#numbers.formatDecimal(item.unit_price, 1, 'POINT', 2, 'COMMA')} + ' Lei'"></td>
+                                <td class="text-center" th:text="${#numbers.formatDecimal(item.price, 1, 'POINT', 2, 'COMMA')} + ' Lei'"></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4" class="text-right"><strong th:text="'Total: ' + ${#numbers.formatDecimal(order.price, 1, 'POINT', 2, 'COMMA')} + ' Lei'"></strong></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Toys Store</title>
+
+    <style>
+        body{
+            margin-top:20px;
+            background:#eee;
+        }
+
+        .card{
+            box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
+        }
+
+        .text-white {
+            color: #fff !important;
+        }
+
+        .ui-bg-overlay-container {
+            position: relative;
+        }
+        .ui-bg-cover {
+            background-color: transparent;
+            background-position: center center;
+            background-size: cover;
+        }
+        .ui-bg-overlay-container .ui-bg-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: block;
+        }
+
+        .ui-w-150 {
+            width: 150px !important;
+            height: auto;
+        }
+
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .opacity-50 {
+            opacity: .5 !important;
+        }
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .ui-bg-overlay-container>*, .ui-bg-video-container>* {
+            position: relative;
+        }
+
+        .tabs-alt.nav-tabs .nav-link.active, .tabs-alt.nav-tabs .nav-link.active:hover, .tabs-alt.nav-tabs .nav-link.active:focus, .tabs-alt>.nav-tabs .nav-link.active, .tabs-alt>.nav-tabs .nav-link.active:hover, .tabs-alt>.nav-tabs .nav-link.active:focus {
+            -webkit-box-shadow: 0 -2px 0 #26B4FF inset;
+            box-shadow: 0 -2px 0 #26B4FF inset;
+        }
+
+        .nav-tabs:not(.nav-fill):not(.nav-justified) .nav-link, .nav-pills:not(.nav-fill):not(.nav-justified) .nav-link {
+            margin-right: .125rem;
+        }
+        .nav-tabs.tabs-alt .nav-link, .tabs-alt>.nav-tabs .nav-link {
+            border-width: 0 !important;
+            border-radius: 0 !important;
+            background-color: transparent !important;
+        }
+        .nav-tabs .nav-link.active {
+            border-bottom-color: #fff;
+        }
+
+        .pl-200 {
+            padding-left: 300px !important;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #ddd;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover {background-color: #3e8e41;}
+
+
+    </style>
+<body>
+
+<!--Navbar-->
+<div class="ui-bg-cover ui-bg-overlay-container text-white" style="background:#00BFFF;">
+    <div class="ui-bg-overlay bg-dark opacity-50"></div>
+
+    <div class="container py-3">
+        <div class="d-flex justify-content-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-o8XQXZUBZsD3bHcb22jzlSG1TZWsTRp3lIpHz-fgMrmlMXsl0fuN4jEruaY7UIAgqM&usqp=CAU"
+                 class="d-block ui-w-150 rounded-circle">
+        </div>
+    </div>
+
+    <div class="ui-bg-overlay-container">
+        <div class="ui-bg-overlay bg-dark opacity-25"></div>
+        <ul class="nav nav-tabs tabs-alt justify-content-center border-transparent">
+            <li class="nav-item">
+                <a class="nav-link text-white py-4"
+                   th:href="@{/admin/clients}">Clients</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white py-4"
+                   th:href="@{/admin/products}">Products</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white py-4 active"
+                   th:href="@{/admin/categories}">Categories</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white py-4"
+                   th:href="@{/admin/orders}">Orders</a>
+            </li>
+
+            <li class="nav-item pl-200">
+                <div class="dropdown">
+                    <button class="nav-link text-white py-4" th:text="${user?.name}"></button>
+                    <div class="dropdown-content">
+                        <a th:href="@{/admin/logout}">Log out</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<!--Content-->
+<div class="container px-3 my-5 clearfix">
+    <!-- Shopping cart table -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Categories</h2>
+        </div>
+        <div class="card-body">
+
+            <div class="float-right pb-3">
+                <a th:href="@{/admin/addCategoryForm}" class="btn btn-lg btn-primary mt-2"><i class="fa fa-plus-circle"> Category</i></a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered m-0">
+                    <thead>
+                    <tr>
+                        <!-- Set columns width -->
+                        <th class="text-center py-3 px-4" style="width: 300px;">Category Name</th>
+                        <th class="text-center py-3 px-4" style="width: 600px;">Description</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="category : ${categories}">
+
+                        <td class="text-center font-weight-semibold align-middle p-4" th:text="${category.name}"></td>
+                        <td class="text-center font-weight-semibold align-middle p-4" th:text="${category.description}"></td>
+                        <td class="text-center align-middle px-0">
+                            <div th:if="${category.id} neq '1'">
+                                <a th:href="@{/admin/editCategoryForm/{id}(id = ${category.id})}"><i class="fa fa-pencil"></i></a>
+                                &nbsp&nbsp
+                                <a th:href="@{/admin/deleteCategory/{id}(id = ${category.id})}"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

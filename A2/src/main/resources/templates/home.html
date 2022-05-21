@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Toys Store</title>
+
+    <style>
+        body{
+            background: #f5f5f5;
+            margin-top:20px;
+        }
+
+        .products-list-img img {
+            width: 140px;
+            height: 160px;
+            -webkit-box-shadow: 0 0 5px 0px #d7d7d7;
+            box-shadow: 0 0 5px 0px #d7d7d7;
+        }
+
+        .products-icons li {
+            margin: 0px !important;
+        }
+
+        .list-grid-item {
+            border: 1px solid #ececec;
+            border-radius: 6px;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
+        .list-grid-item:hover {
+            -webkit-box-shadow: 0 0 20px 0px rgba(47, 47, 47, 0.09);
+            box-shadow: 0 0 20px 0px rgba(47, 47, 47, 0.09);
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+            border-color: transparent;
+        }
+
+        .left-sidebar .card-body {
+            border-bottom: 1px solid #ececec;
+        }
+
+        .card-header {
+            background-color: transparent;
+            margin-bottom: 0 !important;
+        }
+
+        .f-14 {
+            font-size: 14px;
+        }
+
+        .text-white {
+            color: #fff !important;
+        }
+
+        .ui-bg-overlay-container {
+            position: relative;
+        }
+        .ui-bg-cover {
+            background-color: transparent;
+            background-position: center center;
+            background-size: cover;
+        }
+        .ui-bg-overlay-container .ui-bg-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: block;
+        }
+
+        .ui-w-150 {
+            width: 150px !important;
+            height: auto;
+        }
+
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .opacity-50 {
+            opacity: .5 !important;
+        }
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .ui-bg-overlay-container>*, .ui-bg-video-container>* {
+            position: relative;
+        }
+
+        .tabs-alt.nav-tabs .nav-link.active, .tabs-alt.nav-tabs .nav-link.active:hover, .tabs-alt.nav-tabs .nav-link.active:focus, .tabs-alt>.nav-tabs .nav-link.active, .tabs-alt>.nav-tabs .nav-link.active:hover, .tabs-alt>.nav-tabs .nav-link.active:focus {
+            -webkit-box-shadow: 0 -2px 0 #26B4FF inset;
+            box-shadow: 0 -2px 0 #26B4FF inset;
+        }
+
+        .nav-tabs:not(.nav-fill):not(.nav-justified) .nav-link, .nav-pills:not(.nav-fill):not(.nav-justified) .nav-link {
+            margin-right: .125rem;
+        }
+        .nav-tabs.tabs-alt .nav-link, .tabs-alt>.nav-tabs .nav-link {
+            border-width: 0 !important;
+            border-radius: 0 !important;
+            background-color: transparent !important;
+        }
+        .nav-tabs .nav-link.active {
+            border-bottom-color: #fff;
+        }
+
+        .pr-200 {
+            padding-right: 300px !important;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #ddd;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover {background-color: #3e8e41;}
+
+
+    </style>
+<body>
+
+<!--Navbar-->
+<div class="ui-bg-cover ui-bg-overlay-container text-white" style="background:#00BFFF;">
+    <div class="ui-bg-overlay bg-dark opacity-50"></div>
+
+    <div class="container py-3">
+        <div class="d-flex justify-content-center">
+            <a th:href="@{/home}">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-o8XQXZUBZsD3bHcb22jzlSG1TZWsTRp3lIpHz-fgMrmlMXsl0fuN4jEruaY7UIAgqM&usqp=CAU"
+                    class="d-block ui-w-150 rounded-circle">
+            </a>
+        </div>
+    </div>
+
+    <div class="ui-bg-overlay-container">
+        <div class="ui-bg-overlay bg-dark opacity-25"></div>
+        <ul class="nav nav-tabs tabs-alt justify-content-end border-transparent pr-200">
+            <li class="nav-item">
+                <div class="dropdown">
+                    <div sec:authorize="hasAuthority('USER')">
+                        <button class="nav-link text-white py-4"
+                                th:text="${user.name}"></button>
+                    </div>
+
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <button class="nav-link text-white py-4"
+                                th:text="'ADMIN: ' + ${user.name}"></button>
+                    </div>
+
+                    <div sec:authorize="isAnonymous()">
+                        <button class="nav-link text-white py-4">My account</button>
+                    </div>
+
+                    <div sec:authorize="hasAuthority('USER')">
+                        <div class="dropdown-content">
+                            <a th:href="@{/profile}">Profile</a>
+                            <a th:href="@{/delivery_address}">Delivery addresses</a>
+                            <a th:href="@{/client_orders}">Orders</a>
+                            <a th:href="@{/credit_cards}">Credit cards</a>
+                            <a th:href="@{/logout}">Logout</a>
+                        </div>
+                    </div>
+
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <div class="dropdown-content">
+                            <a th:href="@{/admin/logout}">Logout</a>
+                        </div>
+                    </div>
+
+                    <div sec:authorize="isAnonymous()">
+                        <div class="dropdown-content">
+                            <a th:href="@{/login}">Sing in</a>
+                            <a th:href="@{/register}">Sing up</a>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div class="dropdown">
+                    <div sec:authorize="hasAuthority('USER')">
+                        <a class="nav-link text-white py-4 nav-link" th:href="@{/cart}">
+                            <i class="fa fa-shopping-cart"></i>
+                            Cart
+                        </a>
+                    </div>
+
+                    <div sec:authorize="isAnonymous()">
+                        <a class="nav-link text-white py-4 nav-link" th:href="@{/login}">
+                            <i class="fa fa-shopping-cart"></i>
+                            Cart
+                        </a>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<!--Content-->
+<div class="container pt-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="left-sidebar">
+                <div class="accordion">
+                    <div class="card mt-4">
+                        <a data-toggle="collapse" aria-expanded="true">
+                            <div class="card-header">
+                                <h6 class="mb-0 text-dark f-18">Categories</h6>
+                            </div>
+                        </a>
+
+                        <div class="collapse show">
+
+                            <div class="card-body p-0">
+                                <ul>
+
+                                    <li class="pt-2" th:each="category : ${categories}">
+                                        <a class="ml-1 text-muted f-15"
+                                           th:if="${category.id} eq '1'"
+                                           th:href="@{/home}">
+                                            <span th:text="${category.name}"></span>
+                                        </a>
+
+                                        <a class="ml-1 text-muted f-15"
+                                           th:if="${category.id} neq '1'"
+                                           th:href="@{/home/{id_category}(id_category = ${category.id})}">
+                                            <span th:text="${category.name}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-4 col-md-6" th:each="product : ${products}">
+                    <div class="list-grid-item mt-4"  style="background: #ffffff;">
+                        <div class="grid-item-content p-2">
+
+                            <div class="products-list-img mt-3" th:if="${#strings.isEmpty(product.imageURL)}">
+                                <img class="img-fluid mx-auto d-block"
+                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQBEmYu5CIrOt9NwKsbb2R_ckCLlGeAbJD9Dt-uYU3GcUp4lrf4tWLBLdyVp62839gB4c&usqp=CAU">
+                            </div>
+
+                            <div class="products-list-img mt-3" th:if="${not #strings.isEmpty(product.imageURL)}">
+                                <img class="img-fluid mx-auto d-block"
+                                     th:src="${product.imageURL}">
+                            </div>
+
+                            <div class="grid-list-desc text-center mt-4">
+                                <h5>
+                                    <a class="text-dark"
+                                       th:href="@{/product/{id_product}(id_product = ${product.id})}"
+                                       th:text="${product.name}">
+                                    </a>
+                                </h5>
+
+                                <p class="text-muted f-14 pt-2 pb-2" th:text="${product.category_name}"></p>
+
+                                <h5 class="text-dark"
+                                    th:text="${#numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')} + ' Lei'">
+                                </h5>
+                            </div>
+                        </div>
+                        <hr class="mt-0 mb-0">
+                        <div class="apply-button text-center mt-2 mb-2">
+                            <div sec:authorize="hasAuthority('USER')">
+                                <a class="btn btn-primary btn-sm"
+                                   th:href="@{/addAProduct/{id_product}(id_product = ${product.id})}">
+                                    Add to cart
+                                </a>
+                            </div>
+
+                            <div sec:authorize="isAnonymous()">
+                                <a class="btn btn-primary btn-sm"
+                                   th:href="@{/login}">
+                                    Add to cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

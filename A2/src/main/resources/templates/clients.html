@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Toys Store</title>
+
+    <style>
+        body{
+            background:#f2f3f7;
+            margin-top:20px;
+        }
+        .m-b-30 {
+            margin-bottom: 30px;
+        }
+        p{
+            color: #8A98AC;
+        }
+        .table-borderless td {
+            border: 0 !important;
+        }
+        .table td {
+            color: #8A98AC;
+            vertical-align: middle;
+            border-top: 1px solid rgba(0, 0, 0, 0.03);
+            padding: 0.6rem;
+        }
+        .btn-primary-rgba {
+            background-color: rgba(80, 111, 228, 0.1);
+            border: none;
+            color: #506fe4;
+        }
+
+        .card {
+            border: none;
+            border-radius: 3px;
+            background-color: #ffffff;
+        }
+
+
+        .text-white {
+            color: #fff !important;
+        }
+
+        .ui-bg-overlay-container {
+            position: relative;
+        }
+        .ui-bg-cover {
+            background-color: transparent;
+            background-position: center center;
+            background-size: cover;
+        }
+        .ui-bg-overlay-container .ui-bg-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: block;
+        }
+
+        .ui-w-150 {
+            width: 150px !important;
+            height: auto;
+        }
+
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .opacity-50 {
+            opacity: .5 !important;
+        }
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .ui-bg-overlay-container>*, .ui-bg-video-container>* {
+            position: relative;
+        }
+
+        .tabs-alt.nav-tabs .nav-link.active, .tabs-alt.nav-tabs .nav-link.active:hover, .tabs-alt.nav-tabs .nav-link.active:focus, .tabs-alt>.nav-tabs .nav-link.active, .tabs-alt>.nav-tabs .nav-link.active:hover, .tabs-alt>.nav-tabs .nav-link.active:focus {
+            -webkit-box-shadow: 0 -2px 0 #26B4FF inset;
+            box-shadow: 0 -2px 0 #26B4FF inset;
+        }
+
+        .nav-tabs:not(.nav-fill):not(.nav-justified) .nav-link, .nav-pills:not(.nav-fill):not(.nav-justified) .nav-link {
+            margin-right: .125rem;
+        }
+        .nav-tabs.tabs-alt .nav-link, .tabs-alt>.nav-tabs .nav-link {
+            border-width: 0 !important;
+            border-radius: 0 !important;
+            background-color: transparent !important;
+        }
+        .nav-tabs .nav-link.active {
+            border-bottom-color: #fff;
+        }
+
+        .pl-200 {
+            padding-left: 300px !important;
+        }
+
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #ddd;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover {background-color: #3e8e41;}
+
+    </style>
+</head>
+
+<body>
+
+<!--Navbar-->
+<div class="ui-bg-cover ui-bg-overlay-container text-white" style="background:#00BFFF;">
+    <div class="ui-bg-overlay bg-dark opacity-50"></div>
+
+    <div class="container py-3">
+        <div class="d-flex justify-content-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-o8XQXZUBZsD3bHcb22jzlSG1TZWsTRp3lIpHz-fgMrmlMXsl0fuN4jEruaY7UIAgqM&usqp=CAU"
+                 class="d-block ui-w-150 rounded-circle">
+        </div>
+    </div>
+
+    <div class="ui-bg-overlay-container">
+        <div class="ui-bg-overlay bg-dark opacity-25"></div>
+        <ul class="nav nav-tabs tabs-alt justify-content-center border-transparent">
+            <li class="nav-item">
+                <a class="nav-link text-white py-4 active"
+                   th:href="@{/admin/clients}">Clients</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white py-4"
+                   th:href="@{/admin/products}">Products</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white py-4"
+                   th:href="@{/admin/categories}">Categories</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white py-4"
+                   th:href="@{/admin/orders}">Orders</a>
+            </li>
+
+            <li class="nav-item pl-200">
+                <div class="dropdown">
+                    <button class="nav-link text-white py-4" th:text="${user?.name}"></button>
+                    <div class="dropdown-content">
+                        <a th:href="@{/admin/logout}">Log out</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<!--Content-->
+<div class="container px-3 my-5 clearfix">
+    <div class="row">
+        <!-- Start col -->
+        <div class="col-lg-6" th:each="client : ${clients}">
+            <div class="card m-b-30">
+                <div class="card-body py-5">
+                    <div class="row">
+                        <div class="col-lg-3 text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="img-fluid mb-3"/>
+                        </div>
+                        <div class="col-lg-9">
+                            <h4 th:text="${client.firstName} + ' ' + ${client.lastName}"></h4>
+                            <p th:text="${client.email}"></p>
+
+                            <div class="button-list mt-4 mb-3">
+                                <a class="btn btn-primary-rgba"
+                                   th:href="@{/admin/editClientStatus/{id}/{status}(id = ${client.id}, status = ${T(ro.sd.a2.entity.AccountStatus).ENABLE})}">
+                                    Enable
+                                </a>
+
+                                <a class="btn btn-primary-rgba"
+                                   th:href="@{/admin/editClientStatus/{id}/{status}(id = ${client.id}, status = ${T(ro.sd.a2.entity.AccountStatus).DISABLE})}">
+                                    Disable
+                                </a>
+
+                               </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row" class="p-1">ID:</th>
+                                        <td class="p-1" th:text="${client.id}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="p-1">Creation date:</th>
+                                        <td class="p-1" th:text="${#dates.format(client.creationDate, 'dd-MM-yyyy HH:mm')}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="p-1">Phone:</th>
+                                        <td class="p-1" th:text="${client.phone}"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="p-1">Status:</th>
+                                        <td class="p-1" th:text="${client.status}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End col -->
+    </div>
+</div>
+</body>
+</html>

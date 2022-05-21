@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <title>Toys Store</title>
+
+    <style>
+        body{margin-top:20px;}
+
+        .ui-w-150 {
+            width: 150px !important;
+            height: auto;
+        }
+
+        .ui-w-80 {
+            width: 80px !important;
+            height: auto;
+        }
+
+        .rounded-circle{
+            border-radius:50% !important
+        }
+
+    </style>
+
+</head>
+<body>
+
+<table class="body-wrap" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: #f6f6f6; margin: 0;">
+    <tbody>
+    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+
+        <td style="vertical-align: top; margin: 0;"></td>
+
+        <td class="container" style="vertical-align: top; display: block !important; max-width: 800px !important; clear: both !important; margin: 0 auto;">
+
+            <div class="content" style="max-width: 800px; display: block; margin: 0 auto; padding: 20px;">
+
+                <table class="main" width="100%" cellpadding="0" cellspacing="0" style="border-radius: 3px; background-color: #fff; border: 1px solid #e9e9e9;">
+                    <tbody>
+                    <tr>
+                        <td style="font-size: 16px; vertical-align: top; text-align: center; border-radius: 3px 3px 0 0; background:#046486; padding: 20px;"
+                            align="center" bgcolor="#71b6f9" valign="top">
+                            <a th:href="@{http://localhost:8080/toysstore/home}">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-o8XQXZUBZsD3bHcb22jzlSG1TZWsTRp3lIpHz-fgMrmlMXsl0fuN4jEruaY7UIAgqM&usqp=CAU"
+                                     class="d-block ui-w-150 rounded-circle">
+                            </a>
+
+                            <br>
+
+                            <a href="http://localhost:8080/toysstore/home" style="font-size:32px; color:#fff; text-decoration: none;">Toys Store</a> <br>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="content-wrap" style="vertical-align: top; padding: 20px;">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tbody>
+
+                                <tr>
+                                    <td class="content-block" style="font-size: 18px; text-align: center; margin: 0; padding: 0 0 40px;">
+                                        Iti multumim pentru comanda!
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 30px;"
+                                        th:text="'Comanda: ' + ${order.id}">
+                                    </td>
+                                </tr>
+
+                                <tr th:if="${order.paid}">
+                                    <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 30px; border-bottom-color: #333; border-bottom-width: 2px; border-bottom-style: solid;"
+                                        th:text="'Comanda PLATITA'">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="content-wrap" style="vertical-align: top; padding: 20px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tbody style="font-size: 14px;">
+                                                <tr th:each="item : ${order.items}">
+                                                    <td class="content-block" style="margin: 0; padding: 0 0 10px;">
+                                                        <div th:if="${#strings.isEmpty(item.imageUrl)}">
+                                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQBEmYu5CIrOt9NwKsbb2R_ckCLlGeAbJD9Dt-uYU3GcUp4lrf4tWLBLdyVp62839gB4c&usqp=CAU"
+                                                                 class="d-block ui-w-80">
+                                                        </div>
+
+                                                        <div th:if="${not #strings.isEmpty(item.imageUrl)}">
+                                                            <img th:src="${item.imageUrl}"
+                                                                 class="d-block ui-w-80">
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="content-block" style="margin: 0; padding: 0 0 10px;"
+                                                        th:text="${item.name}">
+                                                    </td>
+
+                                                    <td class="content-block" style="text-align: right; margin: 0; padding: 0 0 10px;"
+                                                        th:text="${item.quantity} + ' Buc'">
+                                                    </td>
+
+                                                    <td class="content-block" style="text-align: right; margin: 0; padding: 0 0 10px;"
+                                                        th:text="${#numbers.formatDecimal(item.price, 1, 'POINT', 2, 'COMMA')} + ' Lei'">
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="content-block" style="text-align: right; margin-left: 10px; padding: 10px 0 10px; border-bottom-color: #333; border-bottom-width: 2px; border-bottom-style: solid;"
+                                        th:text="'Total: ' + ${#numbers.formatDecimal(order.price, 1, 'POINT', 2, 'COMMA')} + ' Lei'">
+                                    </td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="content-wrap" style="vertical-align: top; padding: 10px;">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tbody>
+
+                                <tr>
+                                    <td class="content-block" style="font-size: 16px; margin: 0; padding: 0 0 20px;">
+                                        Detalii comanda:
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="content-wrap" style="vertical-align: top; padding: 20px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                            <tr>
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px; width:120px">
+                                                    Nume:
+                                                </td>
+
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px;"
+                                                    th:text="${order.user.name}">
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px; width:120px">
+                                                    Data:
+                                                </td>
+
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px;"
+                                                    th:text="${#dates.format(order.date, 'dd-MM-yyyy HH:mm')}">
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px; width:120px">
+                                                    Plata:
+                                                </td>
+
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px;"
+                                                    th:text="${order.paymentMethod}">
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px; width:120px">
+                                                    Metoda Livrare:
+                                                </td>
+
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px;"
+                                                    th:text="${order.deliveryMethod}">
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px; width:120px">
+                                                    Adresa Livrare:
+                                                </td>
+
+                                                <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px;"
+                                                    th:text="${order.deliveryAddress.county} + ', ' + ${order.deliveryAddress.city} + ', ' + ${order.deliveryAddress.address}">
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="content-wrap" style="vertical-align: top; padding: 10px;">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tbody>
+
+                                <tr>
+                                    <td class="content-block" style="font-size: 16px; margin: 0; padding: 0 0 20px;">
+                                        Persoana contact:
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="content-wrap" style="vertical-align: top; padding: 20px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px; width:120px">
+                                                        Nume:
+                                                    </td>
+
+                                                    <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px;"
+                                                        th:text="${order.deliveryAddress.firstName} + ' ' + ${order.deliveryAddress.lastName}">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px; width:120px">
+                                                        Telefon:
+                                                    </td>
+
+                                                    <td class="content-block" style="font-size: 14px; margin: 0; padding: 0 0 10px;"
+                                                        th:text="${order.deliveryAddress.phone}">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+
+                <div class="footer" style="font-size: 14px; width: 100%; clear: both; color: #999999; margin: 0; padding: 20px;">
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td class="content-block" style="text-align: center; margin: 0; padding: 0 0 10px;">
+                                Toys Store SRL,
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="content-block" style="text-align: center; margin: 0; padding: 0 0 10px;">
+                                Tel/Fax: +40 32 555 52 14/67,
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="content-block" style="text-align: center; margin: 0; padding: 0 0 10px;">
+                                Strada Libertatii, Craiova
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

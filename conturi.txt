@@ -1,0 +1,8 @@
+Conturi admini:
+Parola: 123123
+
+Conturi clienti:
+
+alexandru@email.com -> Alex123!
+ana@email.com -> Anapopescu12!
+ioana@yahoo.com -> Ioana11@

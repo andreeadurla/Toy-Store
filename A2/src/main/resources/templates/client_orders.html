@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Toys Store</title>
+
+    <style>
+        body{
+            background: #f5f5f5;
+            margin-top:20px;
+        }
+
+        label.btn {
+            margin-bottom: 0;
+        }
+
+        .btn {
+            cursor: pointer;
+        }
+
+        .card {
+            background-clip: padding-box;
+            box-shadow: 0 1px 4px rgba(24,28,33,0.012);
+        }
+
+        .row-bordered {
+            overflow: hidden;
+        }
+
+        .account-settings-links .list-group-item.active {
+            font-weight: bold !important;
+        }
+        html:not(.dark-style) .account-settings-links .list-group-item.active {
+            background: transparent !important;
+        }
+        .account-settings-multiselect ~ {
+            width: 100% !important;
+        }
+        .light-style .account-settings-links .list-group-item {
+            padding: 0.85rem 1.5rem;
+            border-color: rgba(24, 28, 33, 0.03) !important;
+        }
+        .light-style .account-settings-links .list-group-item.active {
+            color: #4e5155 !important;
+        }
+        .material-style .account-settings-links .list-group-item {
+            padding: 0.85rem 1.5rem;
+            border-color: rgba(24, 28, 33, 0.03) !important;
+        }
+        .material-style .account-settings-links .list-group-item.active {
+            color: #4e5155 !important;
+        }
+        .dark-style .account-settings-links .list-group-item {
+            padding: 0.85rem 1.5rem;
+            border-color: rgba(255, 255, 255, 0.03) !important;
+        }
+        .dark-style .account-settings-links .list-group-item.active {
+            color: #fff !important;
+        }
+        .light-style .account-settings-links .list-group-item.active {
+            color: #4E5155 !important;
+        }
+        .light-style .account-settings-links .list-group-item {
+            padding: 0.85rem 1.5rem;
+            border-color: rgba(24,28,33,0.03) !important;
+        }
+
+        .text-white {
+            color: #fff !important;
+        }
+
+        .ui-bg-overlay-container {
+            position: relative;
+        }
+        .ui-bg-cover {
+            background-color: transparent;
+            background-position: center center;
+            background-size: cover;
+        }
+        .ui-bg-overlay-container .ui-bg-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: block;
+        }
+
+        .ui-w-80 {
+            width: 80px !important;
+            height: auto;
+        }
+
+        .ui-w-150 {
+            width: 150px !important;
+            height: auto;
+        }
+
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .opacity-50 {
+            opacity: .5 !important;
+        }
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .ui-bg-overlay-container>*, .ui-bg-video-container>* {
+            position: relative;
+        }
+
+        .tabs-alt.nav-tabs .nav-link.active, .tabs-alt.nav-tabs .nav-link.active:hover, .tabs-alt.nav-tabs .nav-link.active:focus, .tabs-alt>.nav-tabs .nav-link.active, .tabs-alt>.nav-tabs .nav-link.active:hover, .tabs-alt>.nav-tabs .nav-link.active:focus {
+            -webkit-box-shadow: 0 -2px 0 #26B4FF inset;
+            box-shadow: 0 -2px 0 #26B4FF inset;
+        }
+
+        .nav-tabs:not(.nav-fill):not(.nav-justified) .nav-link, .nav-pills:not(.nav-fill):not(.nav-justified) .nav-link {
+            margin-right: .125rem;
+        }
+        .nav-tabs.tabs-alt .nav-link, .tabs-alt>.nav-tabs .nav-link {
+            border-width: 0 !important;
+            border-radius: 0 !important;
+            background-color: transparent !important;
+        }
+        .nav-tabs .nav-link.active {
+            border-bottom-color: #fff;
+        }
+
+        .pr-200 {
+            padding-right: 300px !important;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #ddd;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover {background-color: #3e8e41;}
+
+    </style>
+
+</head>
+<body>
+
+<!--Navbar-->
+<div class="ui-bg-cover ui-bg-overlay-container text-white" style="background:#00BFFF;">
+    <div class="ui-bg-overlay bg-dark opacity-50"></div>
+
+    <div class="container py-3">
+        <div class="d-flex justify-content-center">
+            <a th:href="@{/home}">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-o8XQXZUBZsD3bHcb22jzlSG1TZWsTRp3lIpHz-fgMrmlMXsl0fuN4jEruaY7UIAgqM&usqp=CAU"
+                     class="d-block ui-w-150 rounded-circle">
+            </a>
+        </div>
+    </div>
+
+    <div class="ui-bg-overlay-container">
+        <div class="ui-bg-overlay bg-dark opacity-25"></div>
+        <ul class="nav nav-tabs tabs-alt justify-content-end border-transparent pr-200">
+            <li class="nav-item">
+                <div class="dropdown">
+                    <button class="nav-link text-white py-4"
+                            th:text="${user.name}"></button>
+
+                    <div class="dropdown-content">
+                        <a th:href="@{/profile}">Profile</a>
+                        <a th:href="@{/delivery_address}">Delivery addresses</a>
+                        <a th:href="@{/client_orders}">Orders</a>
+                        <a th:href="@{/credit_cards}">Credit cards</a>
+                        <a th:href="@{/logout}">Logout</a>
+                    </div>
+
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div class="dropdown">
+                    <a class="nav-link text-white py-4 nav-link" th:href="@{/cart}">
+                        <i class="fa fa-shopping-cart"></i>
+                        Cart
+                    </a>
+
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<!--Content-->
+<div class="container light-style flex-grow-1 pt-5">
+
+    <h4 class="font-weight-bold py-3 mb-4">
+        Orders
+    </h4>
+
+    <div class="card overflow-hidden">
+        <div class="row no-gutters row-bordered row-border-light">
+            <div class="col-md-3 pt-0">
+                <div class="list-group list-group-flush account-settings-links">
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                       th:href="@{/profile}">General</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                       th:href="@{/delivery_address}">Delivery address</a>
+                    <a class="list-group-item list-group-item-action active" data-toggle="list"
+                       th:href="@{/client_orders}">Orders</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                       th:href="@{/credit_cards}">Credit cards</a>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show">
+
+                        <div class="card-body media align-items-center">
+                            <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/shopping-cart-71-543136.png"
+                                 class="d-block ui-w-80">
+                        </div>
+
+                        <hr class="border-light m-0">
+
+                        <div class="form-group pl-3">
+                            <div class="row pt-3" th:each="order : ${orders}">
+                                <div class="col-md-8">
+                                    <a class="m-0"
+                                       th:href="@{/order_details/{id}(id = ${order.id})}"
+                                       th:text="'Order number: ' + ${order.id}">
+                                    </a>
+
+                                    <p class="m-0 text-muted" th:text="'Placed on: ' +  ${#dates.format(order.date, 'dd-MM-yyyy HH:mm')}"></p>
+                                    <p class="m-0 text-muted" th:text="'Total: ' + ${#numbers.formatDecimal(order.price, 1, 'POINT', 2, 'COMMA')} + ' Lei'"></p>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <a th:href="@{/order_details/{id}(id = ${order.id})}">Order details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

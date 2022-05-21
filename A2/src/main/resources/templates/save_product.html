@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <title>Toys Store</title>
+
+    <style>
+        body{
+            background-color: #DCDCDC;
+            margin-top:20px;
+        }
+        .card {
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
+        }
+
+        .card {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid #e5e9f2;
+            border-radius: .2rem;
+        }
+
+        .text-white {
+            color: #fff !important;
+        }
+
+        .ui-bg-overlay-container {
+            position: relative;
+        }
+        .ui-bg-cover {
+            background-color: transparent;
+            background-position: center center;
+            background-size: cover;
+        }
+        .ui-bg-overlay-container .ui-bg-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: block;
+        }
+
+        .ui-w-150 {
+            width: 150px !important;
+            height: auto;
+        }
+
+        .ui-w-100 {
+            width: 100px !important;
+            height: auto;
+        }
+
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .opacity-50 {
+            opacity: .5 !important;
+        }
+        .bg-dark {
+            background-color: rgba(24,28,33,0.9) !important;
+        }
+        .ui-bg-overlay-container>*, .ui-bg-video-container>* {
+            position: relative;
+        }
+
+        .tabs-alt.nav-tabs .nav-link.active, .tabs-alt.nav-tabs .nav-link.active:hover, .tabs-alt.nav-tabs .nav-link.active:focus, .tabs-alt>.nav-tabs .nav-link.active, .tabs-alt>.nav-tabs .nav-link.active:hover, .tabs-alt>.nav-tabs .nav-link.active:focus {
+            -webkit-box-shadow: 0 -2px 0 #26B4FF inset;
+            box-shadow: 0 -2px 0 #26B4FF inset;
+        }
+
+        .nav-tabs:not(.nav-fill):not(.nav-justified) .nav-link, .nav-pills:not(.nav-fill):not(.nav-justified) .nav-link {
+            margin-right: .125rem;
+        }
+        .nav-tabs.tabs-alt .nav-link, .tabs-alt>.nav-tabs .nav-link {
+            border-width: 0 !important;
+            border-radius: 0 !important;
+            background-color: transparent !important;
+        }
+        .nav-tabs .nav-link.active {
+            border-bottom-color: #fff;
+        }
+
+        .pl-200 {
+            padding-left: 300px !important;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #ddd;}
+
+        .dropdown:hover .dropdown-content {display: block;}
+
+        .dropdown:hover {background-color: #3e8e41;}
+    </style>
+</head>
+<body>
+
+<!--Navbar-->
+<div class="ui-bg-cover ui-bg-overlay-container text-white" style="background:#00BFFF;">
+    <div class="ui-bg-overlay bg-dark opacity-50"></div>
+
+    <div class="container py-3">
+        <div class="d-flex justify-content-center">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-o8XQXZUBZsD3bHcb22jzlSG1TZWsTRp3lIpHz-fgMrmlMXsl0fuN4jEruaY7UIAgqM&usqp=CAU"
+                 class="d-block ui-w-150 rounded-circle">
+        </div>
+    </div>
+
+    <div class="ui-bg-overlay-container">
+        <div class="ui-bg-overlay bg-dark opacity-25"></div>
+        <ul class="nav nav-tabs tabs-alt justify-content-center border-transparent">
+            <li class="nav-item">
+                <a class="nav-link text-white py-4"
+                   th:href="@{/admin/clients}">Clients</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white py-4 active"
+                   th:href="@{/admin/products}">Products</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white py-4"
+                   th:href="@{/admin/categories}">Categories</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white py-4"
+                   th:href="@{/admin/orders}">Orders</a>
+            </li>
+
+            <li class="nav-item pl-200">
+                <div class="dropdown">
+                    <button class="nav-link text-white py-4" th:text="${user?.name}"></button>
+                    <div class="dropdown-content">
+                        <a th:href="@{/admin/logout}">Log out</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<!--Content-->
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+            <div class="d-table-cell align-middle">
+
+                <div class="text-center mt-4">
+                    <h1 class="h2">Product</h1>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="m-sm-4">
+                            <div class="text-center">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQBEmYu5CIrOt9NwKsbb2R_ckCLlGeAbJD9Dt-uYU3GcUp4lrf4tWLBLdyVp62839gB4c&usqp=CAU"
+                                     class="img-fluid rounded-circle" width="132" height="132">
+                            </div>
+                            <form name = "productForm" th:action="@{/admin/saveProduct}" method="POST">
+
+                                <input type="hidden" name="id" th:value="${product?.id}">
+
+                                <input type="hidden" name="lastSale" th:value="${#dates.format(product?.lastSale, 'dd-MM-yyyy HH:mm')}">
+
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control form-control-lg"
+                                           type="text" name="name" th:value="${product?.name}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input class="form-control form-control-lg"
+                                           type="text" name="price" th:value="${product?.price}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Quantity</label>
+                                    <input class="form-control form-control-lg"
+                                           type="number" name="quantity" th:value="${product?.quantity}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select name = "category_id" class="nice-select form-control form-control-lg">
+                                        <option th:each="category : ${categories}"
+                                                th:value="${category.id}"
+                                                th:text="${category.name}"
+                                                th:selected="${product?.category_id} eq ${category.id}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group" th:if="${not #strings.isEmpty(product?.imageURL)}">
+                                    <img class="d-block ui-w-150" th:src="${product?.imageURL}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Image URL</label>
+                                    <input class="form-control form-control-lg"
+                                           type="text" name="imageURL" th:value="${product?.imageURL}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <input class="form-control form-control-lg"
+                                              type="text" name="description" th:value="${product?.description}">
+                                </div>
+
+                                <div class="form-group alert alert-danger" th:if="${exception}"
+                                     th:text="${exception}">
+                                </div>
+
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-lg btn-primary" type="submit" name="add">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

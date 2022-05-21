@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <title>Toys Store</title>
+
+    <style>
+        body{margin-top:20px;}
+
+        .ui-w-150 {
+            width: 150px !important;
+            height: auto;
+        }
+
+        .rounded-circle{
+            border-radius:50% !important
+        }
+
+    </style>
+
+</head>
+<body>
+
+<table class="body-wrap" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: #f6f6f6; margin: 0;">
+    <tbody>
+    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+
+        <td style="vertical-align: top; margin: 0;"></td>
+
+        <td class="container" style="vertical-align: top; display: block !important; max-width: 800px !important; clear: both !important; margin: 0 auto;">
+
+            <div class="content" style="max-width: 800px; display: block; margin: 0 auto; padding: 20px;">
+
+                <table class="main" width="100%" cellpadding="0" cellspacing="0" style="border-radius: 3px; background-color: #fff; border: 1px solid #e9e9e9;">
+                    <tbody>
+                        <tr>
+                            <td style="font-size: 16px; vertical-align: top; text-align: center; border-radius: 3px 3px 0 0; background:#046486; padding: 20px;"
+                                align="center" bgcolor="#71b6f9" valign="top">
+                                <a th:href="@{http://localhost:8080/toysstore/home}">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8-o8XQXZUBZsD3bHcb22jzlSG1TZWsTRp3lIpHz-fgMrmlMXsl0fuN4jEruaY7UIAgqM&usqp=CAU"
+                                         class="d-block ui-w-150 rounded-circle">
+                                </a>
+
+                                <br>
+
+                                <a href="http://localhost:8080/toysstore/home" style="font-size:32px; color:#fff; text-decoration: none;">Toys Store</a> <br>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="content-wrap" style="vertical-align: top; padding: 20px;">
+                                <table width="100%" cellpadding="0" cellspacing="0">
+                                    <tbody style="font-size: 16px;">
+
+                                        <tr>
+                                            <td class="content-block" style="margin: 0; padding: 0 0 20px;"
+                                                th:text="'Salutare ' + ${user.name} + ','">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="content-block" style="margin: 0; padding: 0 0 20px;">
+                                                Contul tau a fost creat cu succes!
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="content-block" style="margin: 0; padding: 0 0 20px;">
+                                                Pentru a te autententifica in contul tau, foloseste emailul
+                                                <strong th:text="${user.email}"> </strong>
+                                                 impreuna cu parola aleasa de tine.
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="content-block" style="margin: 0; padding: 0 0 20px;">
+                                                Pe curand!
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="footer" style="font-size: 14px; width: 100%; clear: both; color: #999999; margin: 0; padding: 20px;">
+                    <table width="100%">
+                        <tbody>
+                            <tr>
+                                <td class="content-block" style="text-align: center; margin: 0; padding: 0 0 10px;">
+                                    Toys Store SRL,
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="content-block" style="text-align: center; margin: 0; padding: 0 0 10px;">
+                                    Tel/Fax: +40 32 555 52 14/67,
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="content-block" style="text-align: center; margin: 0; padding: 0 0 10px;">
+                                    Strada Libertatii, Craiova
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

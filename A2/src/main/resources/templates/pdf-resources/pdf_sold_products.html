@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Toys Store</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+    <style>
+
+        body{
+            margin-top: 10px;
+        }
+
+        .invoice {
+            padding: 20px;
+        }
+
+        .ui-w-100 {
+            width: 100px !important;
+            height: auto;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="invoice">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <img class="d-block ui-w-100 rounded-circle" alt="Logo" th:src="@{classpath:static/images.png}"/>
+                    </div>
+
+                    <div class="col-xs-6 text-right">
+                        <p style="font-size:26px;">Toys Store</p>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>
+                            Raport produse vandute
+                            <br/>
+                            <span class="small"
+                                  th:text="'Perioada: ' +
+                                        ${#dates.format(soldProducts.startDate, 'dd-MM-yyyy')} +
+                                        ' - ' +
+                                        ${#dates.format(soldProducts.endDate, 'dd-MM-yyyy')}"></span>
+                        </h3>
+                    </div>
+                </div>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr class="line">
+                                <td class="text-center"><strong>Denumire produs</strong></td>
+                                <td class="text-center"><strong>Cantitate</strong></td>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="product : ${soldProducts.products}">
+                                <td th:text="${product.key}"></td>
+                                <td class="text-center" th:text="${product.value} + ' Buc'"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
